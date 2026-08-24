@@ -1,0 +1,122 @@
+[
+  {
+    "id": "paracetamol_1",
+    "medicine": "Paracetamol",
+    "title": "Paracetamol (Acetaminophen) — Overview",
+    "text": "Paracetamol, also known as Acetaminophen, is used to relieve mild to moderate pain and reduce fever. It is commonly used for headaches, muscle aches, backache, toothaches, colds, and fevers. It works by reducing the production of prostaglandins in the brain that cause pain and fever. Unlike NSAIDs, it has minimal anti-inflammatory effect and does not typically irritate the stomach lining."
+  },
+  {
+    "id": "paracetamol_2",
+    "medicine": "Paracetamol",
+    "title": "Paracetamol — Side Effects and Warnings",
+    "text": "Paracetamol is generally well tolerated at recommended doses. However, taking more than the recommended dose can cause serious, potentially fatal liver damage. Risk increases with alcohol use, fasting, or pre-existing liver disease. Rare side effects include allergic skin reactions. Always follow labeled dosing and avoid combining multiple products that also contain paracetamol."
+  },
+  {
+    "id": "ibuprofen_1",
+    "medicine": "Ibuprofen",
+    "title": "Ibuprofen — Overview",
+    "text": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to relieve pain, reduce inflammation, and lower fever. It is commonly used for headaches, dental pain, menstrual cramps, muscle aches, and arthritis. It works by inhibiting cyclooxygenase (COX) enzymes that produce prostaglandins."
+  },
+  {
+    "id": "ibuprofen_2",
+    "medicine": "Ibuprofen",
+    "title": "Ibuprofen — Side Effects and Warnings",
+    "text": "Common side effects include stomach upset, heartburn, and nausea. Long-term or high-dose use increases the risk of stomach ulcers, gastrointestinal bleeding, kidney problems, and cardiovascular events such as heart attack or stroke. It should be used with caution in older adults and those with a history of ulcers, kidney disease, or heart disease. It is best taken with food."
+  },
+  {
+    "id": "aspirin_1",
+    "medicine": "Aspirin",
+    "title": "Aspirin — Overview",
+    "text": "Aspirin (acetylsalicylic acid) is used at higher doses for pain, fever, and inflammation, and at low doses as an antiplatelet agent to reduce the risk of heart attack and stroke in at-risk individuals. It irreversibly inhibits platelet aggregation by blocking COX-1."
+  },
+  {
+    "id": "aspirin_2",
+    "medicine": "Aspirin",
+    "title": "Aspirin — Side Effects and Warnings",
+    "text": "Common side effects include stomach irritation and increased bleeding risk. Aspirin should not be given to children or teenagers recovering from viral illness due to the risk of Reye's syndrome. It should be used cautiously with other blood thinners or anti-inflammatory drugs due to additive bleeding risk."
+  },
+  {
+    "id": "warfarin_1",
+    "medicine": "Warfarin",
+    "title": "Warfarin — Overview",
+    "text": "Warfarin is an anticoagulant (blood thinner) used to prevent and treat blood clots in conditions such as atrial fibrillation, deep vein thrombosis, and pulmonary embolism. It works by inhibiting vitamin K-dependent clotting factors. Dosing is individualized and monitored using the INR blood test."
+  },
+  {
+    "id": "warfarin_2",
+    "medicine": "Warfarin",
+    "title": "Warfarin — Side Effects and Warnings",
+    "text": "The main risk with Warfarin is bleeding, which can range from minor bruising to serious internal or intracranial hemorrhage. Many medications, foods high in vitamin K, and alcohol can significantly change how Warfarin works, so regular monitoring and caution with new medications is essential."
+  },
+  {
+    "id": "metformin_1",
+    "medicine": "Metformin",
+    "title": "Metformin — Overview",
+    "text": "Metformin is a first-line oral medication for type 2 diabetes. It lowers blood glucose by reducing glucose production in the liver and improving insulin sensitivity. It does not typically cause hypoglycemia when used alone."
+  },
+  {
+    "id": "metformin_2",
+    "medicine": "Metformin",
+    "title": "Metformin — Side Effects and Warnings",
+    "text": "Common side effects include gastrointestinal upset such as nausea, diarrhea, and abdominal discomfort, especially when starting treatment. A rare but serious risk is lactic acidosis, particularly in people with kidney impairment, severe infection, or heavy alcohol use."
+  },
+  {
+    "id": "amoxicillin_1",
+    "medicine": "Amoxicillin",
+    "title": "Amoxicillin — Overview",
+    "text": "Amoxicillin is a penicillin-type antibiotic used to treat a wide range of bacterial infections, including respiratory tract infections, ear infections, and urinary tract infections. It works by interfering with bacterial cell wall synthesis."
+  },
+  {
+    "id": "amoxicillin_2",
+    "medicine": "Amoxicillin",
+    "title": "Amoxicillin — Side Effects and Warnings",
+    "text": "Common side effects include diarrhea, nausea, and rash. It is contraindicated in people with a known penicillin allergy, which can cause reactions ranging from mild rash to severe anaphylaxis. It should be taken for the full prescribed course even if symptoms improve early."
+  },
+  {
+    "id": "omeprazole_1",
+    "medicine": "Omeprazole",
+    "title": "Omeprazole — Overview",
+    "text": "Omeprazole is a proton pump inhibitor (PPI) used to reduce stomach acid production. It is used to treat gastroesophageal reflux disease (GERD), stomach ulcers, and to protect the stomach lining during long-term NSAID use."
+  },
+  {
+    "id": "omeprazole_2",
+    "medicine": "Omeprazole",
+    "title": "Omeprazole — Side Effects and Warnings",
+    "text": "Generally well tolerated; possible side effects include headache and gastrointestinal upset. Long-term use has been associated with increased risk of bone fractures, vitamin B12 deficiency, and low magnesium levels."
+  },
+  {
+    "id": "sertraline_1",
+    "medicine": "Sertraline",
+    "title": "Sertraline — Overview",
+    "text": "Sertraline is a selective serotonin reuptake inhibitor (SSRI) used to treat depression, anxiety disorders, panic disorder, and obsessive-compulsive disorder. It works by increasing serotonin availability in the brain."
+  },
+  {
+    "id": "sertraline_2",
+    "medicine": "Sertraline",
+    "title": "Sertraline — Side Effects and Warnings",
+    "text": "Common side effects include nausea, insomnia, and sexual dysfunction. Combining Sertraline with other serotonergic drugs increases the risk of serotonin syndrome, a potentially serious condition involving agitation, rapid heart rate, and high body temperature."
+  },
+  {
+    "id": "simvastatin_1",
+    "medicine": "Simvastatin",
+    "title": "Simvastatin — Overview",
+    "text": "Simvastatin is a statin medication used to lower LDL cholesterol and reduce the risk of cardiovascular disease. It works by inhibiting HMG-CoA reductase, an enzyme involved in cholesterol production in the liver."
+  },
+  {
+    "id": "simvastatin_2",
+    "medicine": "Simvastatin",
+    "title": "Simvastatin — Side Effects and Warnings",
+    "text": "Common side effects include muscle aches. A rare but serious risk is rhabdomyolysis, a severe form of muscle breakdown. Certain drug combinations and grapefruit juice can increase Simvastatin levels and the risk of muscle toxicity."
+  },
+  {
+    "id": "lisinopril_1",
+    "medicine": "Lisinopril",
+    "title": "Lisinopril — Overview",
+    "text": "Lisinopril is an ACE inhibitor used to treat high blood pressure and heart failure, and to protect kidney function in diabetic patients. It works by relaxing blood vessels through inhibition of angiotensin-converting enzyme."
+  },
+  {
+    "id": "lisinopril_2",
+    "medicine": "Lisinopril",
+    "title": "Lisinopril — Side Effects and Warnings",
+    "text": "Common side effects include a persistent dry cough and dizziness. It can raise potassium levels and affect kidney function, especially when combined with NSAIDs or potassium-sparing diuretics. Not safe during pregnancy."
+  }
+]

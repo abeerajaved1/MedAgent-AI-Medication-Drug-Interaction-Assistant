@@ -1,0 +1,14 @@
+services:
+  medagent:
+    build: .
+    container_name: medagent
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - medagent_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  medagent_data:
