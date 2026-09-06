@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — MedAgent</title>
+<style>
+  :root {
+    --primary: #3b6df6;
+    --primary-dark: #1d4fd6;
+    --primary-light: #e8effe;
+    --navy: #1a2340;
+    --gray-50: #f8f9fc;
+    --gray-100: #f1f3f8;
+    --gray-200: #e5e9f5;
+    --gray-300: #d3d9ea;
+    --gray-400: #a3a9bd;
+    --gray-500: #6b7290;
+    --gray-600: #4c526b;
+    --green: #14a06a;
+    --green-bg: #e3f7ee;
+    --teal: #0f9e93;
+    --teal-bg: #e1f5f3;
+    --amber: #e07c1f;
+    --amber-bg: #fdf1de;
+    --amber-border: #f6dcb2;
+    --purple: #6a5cf2;
+    --purple-bg: #edebfe;
+    --red: #e6473f;
+    --red-bg: #fdecec;
+    --red-border: #f7cfcc;
+    --card-bg: #ffffff;
+    --card-border: #e6ebf7;
+    --radius-lg: 18px;
+    --shadow-card: 0 10px 24px rgba(59, 109, 246, 0.07);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(150deg, #e9f0ff 0%, #eef3fd 22%, #f3f6fd 45%, #f8fafe 70%, #fbfcff 100%);
+    color: var(--navy); min-height: 100vh;
+  }
+  a { text-decoration: none; }
+  .app-shell { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 240px; flex-shrink: 0; background: var(--card-bg); border-right: 1px solid var(--card-border);
+    padding: 20px 16px; display: flex; flex-direction: column;
+    position: sticky; top: 0; height: 100vh; z-index: 40; transition: transform .25s ease;
+  }
+  .brand-row { display: flex; align-items: center; gap: 10px; padding: 0 6px 20px; }
+  .brand-logo {
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(150deg, #3b6df6, #6a5cf2); color: white;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 14px rgba(59,109,246,0.3);
+  }
+  .brand-logo svg { width: 21px; height: 21px; }
+  .brand-name { font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; color: var(--navy); }
+  .brand-name span { color: var(--primary); }
+  .brand-tagline { font-size: 10.5px; color: var(--gray-500); line-height: 1.3; margin-top: 1px; }
+
+  .nav-group { display: flex; flex-direction: column; gap: 2px; }
+  .nav-divider { height: 1px; background: var(--card-border); margin: 12px 6px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; color: var(--gray-600); position: relative;
+  }
+  .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .nav-item:hover { background: var(--gray-50); color: var(--navy); }
+  .nav-item.active { background: var(--primary-light); color: var(--primary); }
+  .nav-item.active::before {
+    content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 18px; background: var(--primary); border-radius: 0 3px 3px 0;
+  }
+  .nav-item.logout { color: var(--red); background: var(--red-bg); margin-top: auto; }
+  .nav-item.logout:hover { background: #fbdedc; }
+  .sidebar-bottom { margin-top: auto; padding-top: 12px; }
+
+  /* Topbar & mobile controls */
+  .menu-toggle {
+    display: none; align-items: center; justify-content: center; width: 36px; height: 36px;
+    border-radius: 10px; background: var(--card-bg); border: 1px solid var(--card-border); cursor: pointer; flex-shrink: 0;
+  }
+  .menu-toggle svg { width: 18px; height: 18px; color: var(--navy); }
+  .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(15,20,40,0.35); z-index: 30; }
+
+  .main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .page-body { padding: 22px 28px 36px; max-width: 1360px; width: 100%; margin: 0 auto; }
+
+  .topbar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .search-wrap { flex: 1; position: relative; }
+  .search-wrap .lead-ico {
+    position: absolute; left: 17px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--gray-400);
+  }
+  .search-input {
+    width: 100%; padding: 12.5px 52px 12.5px 45px; border-radius: 14px; border: 1px solid var(--card-border);
+    background: var(--card-bg); font-size: 13.5px; color: var(--navy); box-shadow: var(--shadow-card);
+  }
+  .search-input::placeholder { color: var(--gray-400); }
+  .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,109,246,0.12); }
+  .search-btn {
+    position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px; border-radius: 10px; border: none; cursor: pointer;
+    background: linear-gradient(140deg, var(--primary), #6a5cf2); color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .search-btn svg { width: 15px; height: 15px; }
+
+  .profile-pill {
+    display: flex; align-items: center; gap: 9px; background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 5px 12px 5px 5px; box-shadow: var(--shadow-card); flex-shrink: 0; cursor: pointer;
+  }
+  .profile-pill img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+  .profile-pill .who { line-height: 1.2; }
+  .profile-pill .who .name { font-size: 12.5px; font-weight: 700; color: var(--navy); }
+  .profile-pill .who .role { font-size: 11px; color: var(--gray-500); }
+  .profile-pill .chev { width: 14px; height: 14px; color: var(--gray-400); }
+
+  /* Quick action cards */
+  .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .quick-card {
+    background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-card); padding: 16px; display: flex; flex-direction: column;
+    min-height: 168px; position: relative; overflow: hidden;
+  }
+  .quick-card h3 { font-size: 14px; font-weight: 700; margin: 0 0 6px; line-height: 1.25; position: relative; z-index: 2; }
+  .quick-card p { font-size: 11.5px; color: var(--gray-500); line-height: 1.5; margin: 0; max-width: 58%; flex: 1; position: relative; z-index: 2; }
+  .quick-card .qc-img {
+    position: absolute; right: -6px; bottom: -6px; width: 118px; height: 118px; object-fit: contain; z-index: 1;
+  }
+  .quick-card .qc-arrow {
+    width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    margin-top: 12px; flex-shrink: 0; position: relative; z-index: 2;
+  }
+  .quick-card .qc-arrow svg { width: 15px; height: 15px; }
+  .qc-blue h3 { color: var(--primary); }
+  .qc-blue .qc-arrow { background: var(--primary-light); color: var(--primary); }
+  .qc-green h3 { color: var(--green); }
+  .qc-green .qc-arrow { background: var(--green-bg); color: var(--green); }
+  .qc-amber h3 { color: var(--amber); }
+  .qc-amber .qc-arrow { background: var(--amber-bg); color: var(--amber); }
+  .qc-purple h3 { color: var(--purple); }
+  .qc-purple .qc-arrow { background: var(--purple-bg); color: var(--purple); }
+
+  /* Panels */
+  .panels-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .panel {
+    background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-card); padding: 16px 16px 14px; display: flex; flex-direction: column; height: 100%;
+  }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .panel-head h3 { font-size: 14px; font-weight: 700; margin: 0; }
+  .panel-head .view-all { font-size: 11.5px; font-weight: 700; color: var(--primary); }
+  .panel-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .activity-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--gray-100); }
+  .activity-row:last-child { border-bottom: none; }
+  .activity-row .ico-circle {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .activity-row .ico-circle svg { width: 15px; height: 15px; }
+  .activity-row .title { font-size: 12.5px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .activity-row .meta { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+  .activity-row .right { margin-left: auto; flex-shrink: 0; padding-top: 2px; color: var(--gray-300); }
+  .activity-row .right svg { width: 15px; height: 15px; }
+  .activity-row.saved .right { color: var(--primary); }
+
+  .alert-box {
+    background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 13px;
+    padding: 13px; display: flex; gap: 10px;
+  }
+  .alert-box .ico-circle {
+    width: 28px; height: 28px; border-radius: 9px; background: var(--amber); color: white; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .alert-box .ico-circle svg { width: 14px; height: 14px; }
+  .alert-box .t { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .alert-box .d { font-size: 11.5px; color: var(--gray-600); line-height: 1.5; }
+  .alert-box .learn { font-size: 12px; font-weight: 700; color: var(--amber); display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; }
+  .alert-box .learn svg { width: 12px; height: 12px; }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: linear-gradient(120deg, #eef2ff, #f6f9ff); border: 1px solid var(--card-border); border-radius: 16px;
+    padding: 20px 24px; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden;
+  }
+  .disclaimer .ico-circle {
+    width: 40px; height: 40px; border-radius: 12px; background: var(--primary); color: white; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .disclaimer .ico-circle svg { width: 20px; height: 20px; }
+  .disclaimer .t { font-weight: 700; font-size: 14px; margin-bottom: 5px; }
+  .disclaimer .d { font-size: 12.5px; color: var(--gray-600); line-height: 1.55; max-width: 600px; }
+  .disclaimer .doc-img { width: 140px; flex-shrink: 0; margin-left: auto; object-fit: contain; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .quick-grid { grid-template-columns: 1fr 1fr; }
+    .panels-grid { grid-template-columns: 1fr; }
+    .panel { height: auto; }
+    .disclaimer .doc-img { width: 110px; }
+  }
+  @media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+    .sidebar {
+      position: fixed; left: 0; top: 0; transform: translateX(-100%);
+      box-shadow: 0 0 40px rgba(0,0,0,0.18);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop.show { display: block; }
+    .page-body { padding: 16px 14px 28px; }
+  }
+  @media (max-width: 680px) {
+    .quick-grid { grid-template-columns: 1fr; }
+    .topbar-row { flex-wrap: wrap; }
+    .profile-pill { order: -1; }
+    .search-wrap { order: 1; flex-basis: 100%; }
+    .disclaimer { flex-wrap: wrap; }
+    .disclaimer .doc-img { display: none; }
+  }
+  @media (max-width: 420px) {
+    .quick-card .qc-img { width: 92px; height: 92px; }
+    .quick-card p { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-row">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/><path d="M12 8v6M9 11h6"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Med<span>Agent</span></div>
+        <div class="brand-tagline">AI Pharmacist &amp;<br />Diagnostic Assistant</div>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a class="nav-item active" href="dashboard.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="assistant.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 1 1-3.2-6.4L21 4v5h-5"/></svg>
+        AI Medical Assistant
+      </a>
+      <a class="nav-item" href="medicine.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg>
+        Ask About Medicine
+      </a>
+      <a class="nav-item" href="analyze-image.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5-11 11"/></svg>
+        Analyze Image
+      </a>
+      <a class="nav-item" href="interactions.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 8.5 15.5 15.5M9 4h6a5 5 0 0 1 5 5v0M15 20H9a5 5 0 0 1-5-5v0"/></svg>
+        Drug Interactions
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" href="history.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/></svg>
+        History
+      </a>
+      <a class="nav-item" href="history.html?saved=1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>
+        Saved Results
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" href="profile.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+        Profile &amp; Settings
+      </a>
+      <a class="nav-item" href="support.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.7 2.2c-.9.5-1.2 1-1.2 1.8v.3M12 17h.01"/></svg>
+        Help &amp; Support
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a class="nav-item logout" href="login.html" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1"/><path d="M14 12H3m0 0 3.5-3.5M3 12l3.5 3.5"/></svg>
+        Logout
+      </a>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <main class="page-body">
+
+      <div class="topbar-row">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="search-wrap">
+          <span class="lead-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
+          <input class="search-input" type="text" placeholder="Search medicines, symptoms, or ask anything..." />
+          <button class="search-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+        </div>
+        <div class="profile-pill" id="profilePill">
+          <img id="profileAvatar" src="" alt="" onerror="this.src='https://i.pravatar.cc/80?u=medagent-user'" />
+          <div class="who">
+            <div class="name" id="profileName">Guest</div>
+            <div class="role" id="profileRole">Patient</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <a class="quick-card qc-blue" href="medicine.html">
+          <h3>Ask About<br />Medicine</h3>
+          <p>Get details about medicines, dosage, side effects and more.</p>
+          <img class="qc-img" src="img/ask-medicine.png" alt="" />
+          <span class="qc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="quick-card qc-green" href="analyze-image.html">
+          <h3>Analyze Image</h3>
+          <p>Upload an X-ray or medical image for AI analysis.</p>
+          <img class="qc-img" src="img/analyze-img.png" alt="" />
+          <span class="qc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="quick-card qc-amber" href="assistant.html?intent=symptom">
+          <h3>Describe<br />Symptoms</h3>
+          <p>Describe your symptoms and get AI-assisted guidance.</p>
+          <img class="qc-img" src="img/symptoms.png" alt="" />
+          <span class="qc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="quick-card qc-purple" href="assistant.html">
+          <h3>AI Medical<br />Assistant</h3>
+          <p>Ask any medical question and get intelligent answers.</p>
+          <img class="qc-img" src="img/assistant.png" alt="" />
+          <span class="qc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+
+      <div class="panels-grid">
+        <div class="panel">
+          <div class="panel-head"><h3>Recent Activity</h3><a class="view-all" href="history.html">View All</a></div>
+          <div class="panel-body" id="recent-activity-list">
+            <div class="activity-row">
+              <span class="ico-circle" style="background:var(--red-bg);color:var(--red);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg>
+              </span>
+              <div>
+                <div class="title">What is Paracetamol used for?</div>
+                <div class="meta">2 minutes ago</div>
+              </div>
+              <span class="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="activity-row">
+              <span class="ico-circle" style="background:var(--amber-bg);color:var(--amber);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 2.7 17.1A1.8 1.8 0 0 0 4.3 20h15.4a1.8 1.8 0 0 0 1.6-2.9L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/><path d="M12 9v4M12 16.5h.01"/></svg>
+              </span>
+              <div>
+                <div class="title">Aspirin interaction with Warfarin</div>
+                <div class="meta">1 hour ago</div>
+              </div>
+              <span class="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Saved Results</h3><a class="view-all" href="history.html?saved=1">View All</a></div>
+          <div class="panel-body" id="saved-results-list">
+            <div class="activity-row saved">
+              <span class="ico-circle" style="background:var(--primary-light);color:var(--primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg>
+              </span>
+              <div>
+                <div class="title">Ibuprofen Information</div>
+                <div class="meta">Bookmarked • Today</div>
+              </div>
+              <span class="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" fill="currentColor"><path d="M6 3h12v18l-6-4-6 4Z"/></svg></span>
+            </div>
+            <div class="activity-row saved">
+              <span class="ico-circle" style="background:var(--red-bg);color:var(--red);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 8.5 15.5 15.5"/></svg>
+              </span>
+              <div>
+                <div class="title">Drug Interaction: Statin + Clopidogrel</div>
+                <div class="meta">Bookmarked • Yesterday</div>
+              </div>
+              <span class="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" fill="currentColor"><path d="M6 3h12v18l-6-4-6 4Z"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Safety Alerts</h3><a class="view-all" href="history.html?type=interaction">View All</a></div>
+          <div class="panel-body" id="safety-alerts-list">
+            <div class="alert-box">
+              <span class="ico-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 2.7 17.1A1.8 1.8 0 0 0 4.3 20h15.4a1.8 1.8 0 0 0 1.6-2.9L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/><path d="M12 9v4M12 16.5h.01"/></svg>
+              </span>
+              <div>
+                <div class="t">General Reminder</div>
+                <div class="d">This tool provides AI-assisted information only.</div>
+                <a class="learn" href="history.html">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <span class="ico-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <div>
+          <div class="t">Important Disclaimer</div>
+          <div class="d">MedAgent provides AI-assisted information and does not replace professional medical advice, diagnosis, or treatment. Always consult a licensed healthcare professional for medical concerns or emergencies.</div>
+        </div>
+        <img class="doc-img" src="img/doctor.png" alt="" />
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  const sidebar = document.getElementById("sidebar");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  const menuToggle = document.getElementById("menuToggle");
+
+  function openSidebar() {
+    sidebar.classList.add("open");
+    backdrop.classList.add("show");
+  }
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    backdrop.classList.remove("show");
+  }
+  menuToggle.addEventListener("click", openSidebar);
+  backdrop.addEventListener("click", closeSidebar);
+  document.querySelectorAll(".nav-item").forEach(item => item.addEventListener("click", closeSidebar));
+  window.addEventListener("resize", () => { if (window.innerWidth > 900) closeSidebar(); });
+
+  // Profile: pull the real logged-in user instead of a hardcoded demo name.
+  // Tries MedAPI.getUser() (if api.js is loaded on the real site) then
+  // falls back to whatever was saved to localStorage at login, then to
+  // a generic "Guest" placeholder — never a fake name.
+  (function loadProfile() {
+    const nameEl = document.getElementById("profileName");
+    const roleEl = document.getElementById("profileRole");
+    const avatarEl = document.getElementById("profileAvatar");
+    let user = null;
+    try {
+      if (typeof MedAPI !== "undefined" && MedAPI.getUser) user = MedAPI.getUser();
+    } catch (e) {}
+    if (!user) {
+      try {
+        const raw = localStorage.getItem("medagent_user") || localStorage.getItem("user");
+        if (raw) user = JSON.parse(raw);
+      } catch (e) {}
+    }
+    if (user && user.name) {
+      nameEl.textContent = user.name;
+      roleEl.textContent = user.role || "Patient";
+      avatarEl.src = user.avatar || `https://i.pravatar.cc/80?u=${encodeURIComponent(user.email || user.name)}`;
+    } else {
+      nameEl.textContent = "Guest";
+      roleEl.textContent = "Not signed in";
+      avatarEl.src = "https://i.pravatar.cc/80?u=medagent-guest";
+    }
+  })();
+</script>
+</body>
+</html>

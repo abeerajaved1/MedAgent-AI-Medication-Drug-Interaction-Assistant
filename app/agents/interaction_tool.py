@@ -1,16 +1,18 @@
 """
-3.4 Drug Interaction Checking Tool
+3.4 Drug Interaction Checking Tool  (Phase 3: now graph-backed)
 
 Receives medicine names, normalizes them against the known medicine list,
-searches the drug interaction database (via the SQL Agent), and returns a
-structured interaction result to the Coordinator / Pharmacist Agent.
+and queries the NetworkX-based interaction graph (app/graph/interaction_graph.py)
+instead of a flat SQL row lookup. The graph representation also enables
+polypharmacy checks: a new drug can be checked against a patient's whole
+current medication list, not just a single pair.
 """
 import logging
 from dataclasses import dataclass
 from difflib import get_close_matches
 
-from app.agents.sql_agent import sql_agent
 from app.database import list_all_medicine_names
+from app.graph.interaction_graph import interaction_graph, InteractionEdge
 
 logger = logging.getLogger("medagent.interaction_tool")
 
@@ -24,6 +26,13 @@ class InteractionCheckResult:
     status: str            # "no_known_interaction" | "found" | "unknown_medicine"
     severity: str | None = None
     description: str | None = None
+
+
+@dataclass
+class PolypharmacyHit:
+    against_drug: str
+    severity: str
+    description: str
 
 
 class DrugInteractionTool:
@@ -51,22 +60,33 @@ class DrugInteractionTool:
                 status="unknown_medicine",
             )
 
-        result = sql_agent.lookup_interaction(norm_a, norm_b)
-        if not result.found:
+        edge: InteractionEdge | None = interaction_graph.get_interaction(norm_a, norm_b)
+        if not edge:
             return InteractionCheckResult(
                 drug_a=drug_a, drug_b=drug_b,
                 normalized_a=norm_a, normalized_b=norm_b,
                 status="no_known_interaction",
             )
 
-        interaction = result.interaction
         return InteractionCheckResult(
             drug_a=drug_a, drug_b=drug_b,
             normalized_a=norm_a, normalized_b=norm_b,
             status="found",
-            severity=interaction["severity"],
-            description=interaction["description"],
+            severity=edge.severity,
+            description=edge.description,
         )
+
+    def check_against_medication_list(self, new_drug: str, current_meds: list[str]) -> list[PolypharmacyHit]:
+        """Phase 5 support: check a candidate drug against every medicine
+        already on a patient's profile, using the interaction graph's
+        neighbor lookup (a 1-hop polypharmacy check)."""
+        norm_new = self._normalize(new_drug)
+        if not norm_new:
+            return []
+        norm_meds = [self._normalize(m) for m in current_meds if self._normalize(m)]
+        hits = interaction_graph.check_against_medication_list(norm_new, norm_meds)
+        return [PolypharmacyHit(against_drug=med, severity=edge.severity, description=edge.description)
+                for med, edge in hits]
 
 
 drug_interaction_tool = DrugInteractionTool()

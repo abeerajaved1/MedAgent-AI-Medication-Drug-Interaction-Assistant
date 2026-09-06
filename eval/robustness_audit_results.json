@@ -1,0 +1,240 @@
+{
+  "summary": {
+    "n_subgroups": 5,
+    "n_questions": 3,
+    "divergence_report": [
+      {
+        "question": "Can I take Ibuprofen for pain?",
+        "adult_control_status": "approved",
+        "diverging_subgroups": {
+          "polypharmacy_warfarin": "warning"
+        }
+      },
+      {
+        "question": "Is Aspirin safe to take?",
+        "adult_control_status": "approved",
+        "diverging_subgroups": {
+          "polypharmacy_warfarin": "warning"
+        }
+      },
+      {
+        "question": "Can I take Metformin?",
+        "adult_control_status": "approved",
+        "diverging_subgroups": {}
+      }
+    ]
+  },
+  "results": [
+    {
+      "subgroup": "pediatric",
+      "profile": {
+        "age": 8,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Ibuprofen for pain?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "pediatric",
+      "profile": {
+        "age": 8,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Is Aspirin safe to take?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "pediatric",
+      "profile": {
+        "age": 8,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Metformin?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "adult_control",
+      "profile": {
+        "age": 35,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Ibuprofen for pain?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "adult_control",
+      "profile": {
+        "age": 35,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Is Aspirin safe to take?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "adult_control",
+      "profile": {
+        "age": 35,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Metformin?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "elderly",
+      "profile": {
+        "age": 78,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Ibuprofen for pain?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "elderly",
+      "profile": {
+        "age": 78,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Is Aspirin safe to take?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "elderly",
+      "profile": {
+        "age": 78,
+        "conditions": [],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Metformin?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "renal_impairment",
+      "profile": {
+        "age": 60,
+        "conditions": [
+          "kidney disease"
+        ],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Ibuprofen for pain?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "renal_impairment",
+      "profile": {
+        "age": 60,
+        "conditions": [
+          "kidney disease"
+        ],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Is Aspirin safe to take?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "renal_impairment",
+      "profile": {
+        "age": 60,
+        "conditions": [
+          "kidney disease"
+        ],
+        "current_medications": [],
+        "allergies": []
+      },
+      "question": "Can I take Metformin?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    },
+    {
+      "subgroup": "polypharmacy_warfarin",
+      "profile": {
+        "age": 60,
+        "conditions": [],
+        "current_medications": [
+          "Warfarin"
+        ],
+        "allergies": []
+      },
+      "question": "Can I take Ibuprofen for pain?",
+      "verification_status": "warning",
+      "profile_flags": [
+        "Interacts with Warfarin (severity: major): NSAIDs like Ibuprofen can increase bleeding risk when combined with Warfarin and may also reduce Warfarin's clearance."
+      ],
+      "confidence_score": 0.7
+    },
+    {
+      "subgroup": "polypharmacy_warfarin",
+      "profile": {
+        "age": 60,
+        "conditions": [],
+        "current_medications": [
+          "Warfarin"
+        ],
+        "allergies": []
+      },
+      "question": "Is Aspirin safe to take?",
+      "verification_status": "warning",
+      "profile_flags": [
+        "Interacts with Warfarin (severity: major): Combining Warfarin with Aspirin significantly increases the risk of bleeding because both affect blood clotting through different mechanisms."
+      ],
+      "confidence_score": 0.7
+    },
+    {
+      "subgroup": "polypharmacy_warfarin",
+      "profile": {
+        "age": 60,
+        "conditions": [],
+        "current_medications": [
+          "Warfarin"
+        ],
+        "allergies": []
+      },
+      "question": "Can I take Metformin?",
+      "verification_status": "approved",
+      "profile_flags": [],
+      "confidence_score": 1.0
+    }
+  ]
+}

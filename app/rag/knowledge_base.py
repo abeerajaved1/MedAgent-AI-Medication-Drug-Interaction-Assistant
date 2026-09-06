@@ -38,24 +38,26 @@ class KnowledgeBase:
         logger.info(f"RAG knowledge base loaded: {len(self.docs)} documents.")
 
     def search(self, query: str, top_k: int = 3, medicine_filter: str | None = None) -> list[RetrievedDoc]:
+        from app.database import get_trust_multiplier
+
         query_vec = self.vectorizer.transform([query])
         sims = cosine_similarity(query_vec, self.matrix).flatten()
 
-        ranked_idx = sims.argsort()[::-1]
-        results = []
-        for idx in ranked_idx:
-            if sims[idx] <= 0:
+        candidates = []
+        for idx, sim in enumerate(sims):
+            if sim <= 0:
                 continue
             doc = self.docs[idx]
             if medicine_filter and medicine_filter.lower() not in doc["medicine"].lower():
                 continue
-            results.append(RetrievedDoc(
+            trust = get_trust_multiplier(doc["id"])
+            candidates.append(RetrievedDoc(
                 id=doc["id"], medicine=doc["medicine"], title=doc["title"],
-                text=doc["text"], score=float(sims[idx]),
+                text=doc["text"], score=round(float(sim) * trust, 4),
             ))
-            if len(results) >= top_k:
-                break
-        return results
+
+        candidates.sort(key=lambda d: d.score, reverse=True)
+        return candidates[:top_k]
 
     def search_by_medicine(self, medicine_name: str) -> list[RetrievedDoc]:
         results = []

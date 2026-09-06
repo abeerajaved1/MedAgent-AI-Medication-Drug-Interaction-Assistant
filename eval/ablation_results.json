@@ -1,0 +1,91 @@
+[
+  {
+    "config": "baseline (RAG+SQL+graph only)",
+    "settings": {
+      "name": "baseline (RAG+SQL+graph only)",
+      "external": false,
+      "veto_rounds": 0,
+      "session_id": null,
+      "limit": 20
+    },
+    "summary": {
+      "n_cases": 20,
+      "retrieval_hit_rate": 1.0,
+      "avg_sources_per_query": 2.0,
+      "avg_revision_count": 0.0,
+      "verification_status_distribution": {
+        "approved": 20
+      },
+      "intent_classification_accuracy": 1.0,
+      "groundedness_rate_sampled": 0.0,
+      "groundedness_sample_size": 7
+    }
+  },
+  {
+    "config": "+ external sources (RxNorm/openFDA)",
+    "settings": {
+      "name": "+ external sources (RxNorm/openFDA)",
+      "external": true,
+      "veto_rounds": 0,
+      "session_id": null,
+      "limit": 20
+    },
+    "summary": {
+      "n_cases": 20,
+      "retrieval_hit_rate": 1.0,
+      "avg_sources_per_query": 2.0,
+      "avg_revision_count": 0.0,
+      "verification_status_distribution": {
+        "approved": 20
+      },
+      "intent_classification_accuracy": 1.0,
+      "groundedness_rate_sampled": 0.0,
+      "groundedness_sample_size": 7
+    }
+  },
+  {
+    "config": "+ safety veto/re-draft loop",
+    "settings": {
+      "name": "+ safety veto/re-draft loop",
+      "external": true,
+      "veto_rounds": 1,
+      "session_id": null,
+      "limit": 20
+    },
+    "summary": {
+      "n_cases": 20,
+      "retrieval_hit_rate": 1.0,
+      "avg_sources_per_query": 2.0,
+      "avg_revision_count": 0.0,
+      "verification_status_distribution": {
+        "approved": 20
+      },
+      "intent_classification_accuracy": 1.0,
+      "groundedness_rate_sampled": 0.0,
+      "groundedness_sample_size": 7
+    }
+  },
+  {
+    "config": "+ patient profile (full system)",
+    "settings": {
+      "name": "+ patient profile (full system)",
+      "external": true,
+      "veto_rounds": 1,
+      "session_id": "ablation-demo-session",
+      "limit": 20
+    },
+    "summary": {
+      "n_cases": 20,
+      "retrieval_hit_rate": 1.0,
+      "avg_sources_per_query": 2.9,
+      "avg_revision_count": 0.9,
+      "verification_status_distribution": {
+        "warning": 18,
+        "approved": 2
+      },
+      "intent_classification_accuracy": 1.0,
+      "groundedness_rate_sampled": 0.0,
+      "groundedness_sample_size": 7
+    }
+  }
+]

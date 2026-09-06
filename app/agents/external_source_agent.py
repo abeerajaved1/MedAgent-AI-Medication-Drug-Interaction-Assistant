@@ -60,8 +60,14 @@ class ExternalLookupResult:
 
 class ExternalSourceAgent:
     def __init__(self):
-        self.enabled = settings.EXTERNAL_SOURCES_ENABLED
         self._client: httpx.Client | None = None
+
+    @property
+    def enabled(self) -> bool:
+        # Read dynamically (not cached at construction) so the Phase-6
+        # ablation harness can toggle settings.EXTERNAL_SOURCES_ENABLED
+        # between runs without re-importing this module.
+        return settings.EXTERNAL_SOURCES_ENABLED
 
     @property
     def client(self) -> httpx.Client:

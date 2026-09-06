@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Drug Interaction Checker — MedAgent</title>
+<style>
+  :root {
+    --primary: #3b6df6; --primary-dark: #1d4fd6; --primary-light: #e8effe;
+    --navy: #1a2340; --gray-50: #f8f9fc; --gray-100: #f1f3f8; --gray-200: #e5e9f5;
+    --gray-300: #d3d9ea; --gray-400: #a3a9bd; --gray-500: #6b7290; --gray-600: #4c526b;
+    --green: #14a06a; --green-bg: #e5f8ee; --green-border: #bfead6;
+    --teal: #0f9e93; --teal-bg: #e1f5f3;
+    --amber: #b9791a; --amber-bg: #fdf3df; --amber-border: #f5e0ab;
+    --purple: #6a5cf2; --purple-bg: #efeeff;
+    --red: #d93c34; --red-bg: #fdeceb; --red-border: #f6cdc9;
+    --card-bg: #ffffff; --card-border: #e6ebf7;
+    --shadow-card: 0 10px 24px rgba(59, 109, 246, 0.07);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(150deg, #eef2ff 0%, #f2f5fd 25%, #f7f9fe 55%, #fbfcff 100%);
+    color: var(--navy); min-height: 100vh;
+  }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  table { border-collapse: collapse; width: 100%; }
+  .app-shell { display: flex; min-height: 100vh; }
+
+  /* ---------- shared sidebar/topbar ---------- */
+  .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(15,20,40,0.35); z-index: 30; }
+  .sidebar {
+    width: 240px; flex-shrink: 0; background: var(--card-bg); border-right: 1px solid var(--card-border);
+    padding: 20px 16px; display: flex; flex-direction: column;
+    position: sticky; top: 0; height: 100vh; z-index: 40; transition: transform .25s ease;
+  }
+  .brand-row { display: flex; align-items: center; gap: 10px; padding: 0 6px 20px; }
+  .brand-logo { width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; background: linear-gradient(150deg, #3b6df6, #6a5cf2); color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 14px rgba(59,109,246,0.3); }
+  .brand-logo svg { width: 21px; height: 21px; }
+  .brand-name { font-weight: 700; font-size: 15.5px; }
+  .brand-name span { color: var(--primary); }
+  .brand-tagline { font-size: 10.5px; color: var(--gray-500); line-height: 1.3; margin-top: 1px; }
+  .nav-group { display: flex; flex-direction: column; gap: 2px; }
+  .nav-divider { height: 1px; background: var(--card-border); margin: 12px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--gray-600); position: relative; }
+  .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .nav-item:hover { background: var(--gray-50); color: var(--navy); }
+  .nav-item.active { background: var(--primary-light); color: var(--primary); }
+  .nav-item.active::before { content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%); width: 3px; height: 18px; background: var(--primary); border-radius: 0 3px 3px 0; }
+  .nav-item.logout { color: var(--red); background: var(--red-bg); }
+  .nav-item.logout:hover { background: #fbdedc; }
+  .sidebar-bottom { margin-top: auto; padding-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .sidebar-note { background: var(--primary-light); border-radius: 12px; padding: 12px; display: flex; gap: 9px; font-size: 11px; color: var(--primary-dark); line-height: 1.5; }
+  .sidebar-note svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--primary); margin-top: 1px; }
+  .menu-toggle { display: none; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--card-border); cursor: pointer; flex-shrink: 0; }
+  .menu-toggle svg { width: 18px; height: 18px; color: var(--navy); }
+  .main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .page-body { padding: 22px 28px 40px; max-width: 1360px; width: 100%; margin: 0 auto; }
+
+  .topbar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .search-wrap { flex: 1; position: relative; }
+  .search-wrap .lead-ico { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--gray-400); }
+  .search-input { width: 100%; padding: 11.5px 16px 11.5px 42px; border-radius: 13px; border: 1px solid var(--card-border); background: var(--card-bg); font-size: 13.5px; color: var(--navy); box-shadow: var(--shadow-card); }
+  .search-input::placeholder { color: var(--gray-400); }
+  .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,109,246,0.12); }
+  .topbar-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .bell-btn { position: relative; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--card-bg); display: flex; align-items: center; justify-content: center; color: var(--gray-500); }
+  .bell-btn svg { width: 17px; height: 17px; }
+  .bell-dot { position: absolute; top: -4px; right: -4px; background: var(--red); color: white; font-size: 9.5px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--gray-50); }
+  .topbar-divider { width: 1px; height: 26px; background: var(--card-border); }
+  .profile-pill { display: flex; align-items: center; gap: 9px; cursor: pointer; }
+  .profile-pill .avatar-circle { width: 34px; height: 34px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-500); flex-shrink: 0; }
+  .profile-pill .avatar-circle svg { width: 18px; height: 18px; }
+  .profile-pill .who { line-height: 1.2; }
+  .profile-pill .name { font-size: 12.5px; font-weight: 700; }
+  .profile-pill .role { font-size: 11px; color: var(--gray-500); }
+  .profile-pill .chev { width: 14px; height: 14px; color: var(--gray-400); }
+
+  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--shadow-card); }
+  .card-pad { padding: 20px; }
+
+  /* ---------- page-specific ---------- */
+  .di-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 18px; flex-wrap: wrap; }
+  .di-header h1 { font-size: 21px; font-weight: 800; margin: 0 0 4px; }
+  .di-header p { font-size: 13px; color: var(--gray-500); margin: 0; }
+  .di-hero { position: relative; width: 130px; height: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .di-hero::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%); }
+  .di-hero img { position: relative; width: 96px; height: auto; object-fit: contain; }
+  .di-hero svg { position: relative; width: 60px; height: 60px; color: var(--primary); opacity: .85; }
+
+  .med-pickers { display: grid; grid-template-columns: 1fr auto 1fr auto; gap: 14px; align-items: end; }
+  .med-picker label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; margin-bottom: 8px; }
+  .med-picker label .ico-circle { width: 25px; height: 25px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .med-picker label .ico-circle svg { width: 13px; height: 13px; }
+  .med-picker.picker-a label .ico-circle { background: var(--primary-light); color: var(--primary); }
+  .med-picker.picker-b label .ico-circle { background: var(--green-bg); color: var(--green); }
+  .med-input { width: 100%; padding: 11px 14px; border: 1px solid var(--card-border); border-radius: 11px; font-size: 13.5px; background: var(--gray-50); }
+  .med-input:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(59,109,246,0.1); }
+  .med-picker .examples { font-size: 11px; color: var(--gray-400); margin-top: 6px; }
+  .swap-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--card-border); background: white; display: flex; align-items: center; justify-content: center; color: var(--gray-500); margin-bottom: 2px; flex-shrink: 0; }
+  .swap-btn svg { width: 16px; height: 16px; }
+  .swap-btn:hover { background: var(--gray-50); }
+  .add-med-box { border: 1.5px dashed var(--card-border); border-radius: 11px; padding: 12px; text-align: center; color: var(--primary); font-size: 12.5px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; align-self: stretch; }
+  .add-med-box:hover { background: var(--gray-50); }
+  .add-med-box .ico-circle { width: 26px; height: 26px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; }
+  .add-med-box .ico-circle svg { width: 13px; height: 13px; }
+
+  .check-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 220px; max-width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 13.5px; font-weight: 700; margin-top: 18px; box-shadow: 0 8px 16px rgba(59,109,246,0.22); }
+  .check-btn svg { width: 15px; height: 15px; }
+  .privacy-note { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--gray-500); margin-top: 10px; }
+  .privacy-note svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .result-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-top: 18px; align-items: start; }
+  .risk-hero { display: flex; gap: 14px; align-items: flex-start; border-radius: 13px; padding: 16px; }
+  .risk-hero.high { background: var(--red-bg); border: 1px solid var(--red-border); }
+  .risk-hero.moderate { background: var(--amber-bg); border: 1px solid var(--amber-border); }
+  .risk-hero.low { background: var(--green-bg); border: 1px solid var(--green-border); }
+  .risk-hero .ico-circle { width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0; background: white; display: flex; align-items: center; justify-content: center; }
+  .risk-hero .ico-circle svg { width: 22px; height: 22px; }
+  .risk-hero h3 { font-size: 16px; font-weight: 800; margin: 0; }
+  .risk-hero .pair-row { display: flex; align-items: center; gap: 8px; margin-top: 5px; flex-wrap: wrap; font-size: 13px; }
+  .risk-hero p { font-size: 12.5px; color: var(--gray-600); margin: 8px 0 0; line-height: 1.55; }
+  .sev-badge { font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .sev-badge.high { color: white; background: var(--red); }
+  .sev-badge.moderate { color: white; background: var(--amber); }
+  .sev-badge.low { color: white; background: var(--green); }
+
+  .panel-title { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 800; margin-bottom: 12px; }
+  .panel-title .ico-circle { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .panel-title .ico-circle svg { width: 14px; height: 14px; }
+  .sub-head { font-weight: 700; font-size: 12.5px; margin: 18px 0 10px; }
+  .effect-list li { display: flex; gap: 8px; font-size: 13px; margin-bottom: 9px; line-height: 1.5; }
+  .effect-list li svg { width: 15px; height: 15px; color: var(--amber); flex-shrink: 0; margin-top: 2px; }
+
+  .src-table th, .src-table td { text-align: left; padding: 9px 6px; font-size: 12px; border-bottom: 1px solid var(--gray-100); }
+  .src-table th { color: var(--gray-500); font-weight: 600; }
+
+  .side-card { margin-bottom: 16px; }
+  .side-card:last-child { margin-bottom: 0; }
+  .risk-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .risk-meta-item { border: 1px solid var(--card-border); border-radius: 11px; padding: 10px 12px; background: var(--gray-50); }
+  .risk-meta-item .k { font-size: 11px; color: var(--gray-500); }
+  .risk-meta-item .v { font-weight: 700; font-size: 13.5px; margin-top: 2px; text-transform: capitalize; }
+  .stars { display: flex; gap: 2px; color: var(--amber); margin-top: 4px; }
+  .stars svg { width: 14px; height: 14px; }
+
+  .action-box { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 12px; padding: 14px; }
+  .action-box li { display: flex; gap: 8px; font-size: 12.5px; margin-bottom: 9px; line-height: 1.5; }
+  .action-box li svg { width: 15px; height: 15px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+  .seek-care-box { display: flex; gap: 8px; align-items: flex-start; background: white; border: 1px solid var(--green-border); border-radius: 9px; padding: 10px 12px; margin-top: 10px; font-size: 12px; font-weight: 700; }
+  .seek-care-box svg { width: 15px; height: 15px; color: var(--red); flex-shrink: 0; margin-top: 1px; }
+
+  .feature-strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .feature-item { display: flex; align-items: flex-start; gap: 11px; padding: 16px 18px; }
+  .feature-item + .feature-item { border-left: 1px solid var(--card-border); }
+  .feature-item .ico-circle { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .feature-item .ico-circle svg { width: 18px; height: 18px; }
+  .feature-item .t { font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+  .feature-item .d { font-size: 11.5px; color: var(--gray-500); line-height: 1.4; }
+
+  .info-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--primary-light); border: 1px solid #d7e2fb; border-radius: 14px; padding: 18px 22px; margin-top: 18px; }
+  .info-box .ico-circle { width: 30px; height: 30px; border-radius: 9px; color: var(--primary); background: white; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .info-box .ico-circle svg { width: 16px; height: 16px; }
+  .info-box h4 { color: var(--primary); font-size: 14px; margin: 0 0 4px; }
+  .info-box p { font-size: 12px; color: var(--gray-600); margin: 0; }
+  .info-box .info-art { width: 72px; height: auto; flex-shrink: 0; opacity: .9; }
+
+  .empty-note { font-size: 12.5px; color: var(--gray-400); }
+  .hidden { display: none !important; }
+  .spinner { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; display: inline-block; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 1000px) {
+    .med-pickers { grid-template-columns: 1fr; }
+    .swap-btn { display: none; }
+    .result-grid { grid-template-columns: 1fr; }
+    .di-header { flex-direction: column; align-items: flex-start; }
+    .feature-strip { grid-template-columns: 1fr 1fr; }
+    .feature-item + .feature-item { border-left: none; border-top: 1px solid var(--card-border); }
+    .info-box { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+    .sidebar { position: fixed; left: 0; top: 0; transform: translateX(-100%); box-shadow: 0 0 40px rgba(0,0,0,0.18); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop.show { display: block; }
+    .page-body { padding: 16px 14px 30px; }
+  }
+  @media (max-width: 680px) {
+    .topbar-row { flex-wrap: wrap; }
+    .search-wrap { order: 2; flex-basis: 100%; }
+    .topbar-right { order: 1; margin-left: auto; }
+    .profile-pill .who { display: none; }
+    .card-pad { padding: 16px; }
+    .feature-strip { grid-template-columns: 1fr; }
+    .feature-item + .feature-item { border-top: 1px solid var(--card-border); }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-row">
+      <div class="brand-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/><path d="M12 8v6M9 11h6"/></svg></div>
+      <div>
+        <div class="brand-name">Med<span>Agent</span></div>
+        <div class="brand-tagline">AI Pharmacist &amp;<br />Diagnostic Assistant</div>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a class="nav-item" href="dashboard.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="assistant.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 20l1-4.2A8.5 8.5 0 1 1 21 12Z"/></svg>
+        AI Medical Assistant
+      </a>
+      <a class="nav-item" href="medicine.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg>
+        Ask About Medicine
+      </a>
+      <a class="nav-item" href="analyze-image.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5-11 11"/></svg>
+        Analyze Image
+      </a>
+      <a class="nav-item active" href="interactions.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 8.5 15.5 15.5M9 4h6a5 5 0 0 1 5 5v0M15 20H9a5 5 0 0 1-5-5v0"/></svg>
+        Drug Interactions
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" href="history.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/></svg>
+        History
+      </a>
+      <a class="nav-item" href="history.html?saved=1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>
+        Saved Results
+      </a>
+      <a class="nav-item" href="sources.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15Z"/></svg>
+        Sources &amp; Evidence
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" href="profile.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+        Profile &amp; Settings
+      </a>
+      <a class="nav-item" href="support.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.7 2.2c-.9.5-1.2 1-1.2 1.8v.3M12 17h.01"/></svg>
+        Help &amp; Support
+      </a>
+
+      <div class="nav-divider"></div>
+      <a class="nav-item logout" href="login.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1"/><path d="M14 12H3m0 0 3.5-3.5M3 12l3.5 3.5"/></svg>
+        Logout
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg>
+        <span>MedAgent provides AI-assisted information and does not replace professional medical advice.</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <main class="page-body">
+
+      <div class="topbar-row">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="search-wrap">
+          <span class="lead-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <input class="search-input" placeholder="Search medicines, symptoms, or ask anything..." />
+        </div>
+        <div class="topbar-right">
+          <button class="bell-btn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+            <span class="bell-dot">3</span>
+          </button>
+          <div class="topbar-divider"></div>
+          <div class="profile-pill">
+            <div class="avatar-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></div>
+            <div class="who">
+              <div class="name" id="profileName">Guest</div>
+              <div class="role" id="profileRole">Patient</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="di-header">
+        <div>
+          <h1>Drug Interaction Checker</h1>
+          <p>Check for interactions between two or more medicines.</p>
+        </div>
+        <div class="di-hero">
+          <img src="img/capsules.png" alt="" onerror="this.remove(); document.getElementById('diHeroFallback').style.display='flex';" />
+          <svg id="diHeroFallback" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <div class="med-pickers">
+          <div class="med-picker picker-a">
+            <label><span class="ico-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg></span>Medicine 1</label>
+            <input class="med-input" id="drugA" placeholder="e.g. Warfarin" list="medListA" autocomplete="off" />
+            <datalist id="medListA"></datalist>
+            <div class="examples" id="examplesA"></div>
+          </div>
+          <button class="swap-btn" id="swapBtn" title="Swap medicines">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 3 4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg>
+          </button>
+          <div class="med-picker picker-b">
+            <label><span class="ico-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="m8.5 8.5 7 7"/></svg></span>Medicine 2</label>
+            <input class="med-input" id="drugB" placeholder="e.g. Aspirin" list="medListB" autocomplete="off" />
+            <datalist id="medListB"></datalist>
+            <div class="examples" id="examplesB"></div>
+          </div>
+          <div class="add-med-box" id="addMedBox">
+            <span class="ico-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+            Add another medicine
+          </div>
+        </div>
+        <button class="check-btn" id="checkBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          Check Interaction
+        </button>
+        <p class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Your data is private and used only for this analysis.
+        </p>
+      </div>
+
+      <div id="resultSection" class="hidden" style="margin-top:20px;"></div>
+
+      <div class="card" style="padding:0;margin-top:20px;">
+        <div class="feature-strip" id="featureStrip"></div>
+      </div>
+
+      <div class="info-box" id="infoBox" style="display:none;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="ico-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+          <div>
+            <h4>Important to know</h4>
+            <p id="infoText"></p>
+          </div>
+        </div>
+        <img class="info-art" src="images/clipboard-check.png" alt="" onerror="this.style.display='none'" />
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  const sidebar = document.getElementById("sidebar");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  document.getElementById("menuToggle").addEventListener("click", () => { sidebar.classList.add("open"); backdrop.classList.add("show"); });
+  backdrop.addEventListener("click", () => { sidebar.classList.remove("open"); backdrop.classList.remove("show"); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 900) { sidebar.classList.remove("open"); backdrop.classList.remove("show"); } });
+
+  function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+
+  (function loadProfile() {
+    const nameEl = document.getElementById("profileName");
+    const roleEl = document.getElementById("profileRole");
+    let user = null;
+    try { if (typeof MedAPI !== "undefined" && MedAPI.getUser) user = MedAPI.getUser(); } catch (e) {}
+    if (!user) { try { const raw = localStorage.getItem("medagent_user") || localStorage.getItem("user"); if (raw) user = JSON.parse(raw); } catch (e) {} }
+    if (user && user.name) { nameEl.textContent = user.name.split(" ")[0]; roleEl.textContent = user.role || "Patient"; }
+    else { nameEl.textContent = "Guest"; roleEl.textContent = "Not signed in"; }
+  })();
+
+  const I = {
+    shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 5 5 9-11"/></svg>',
+    alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 2.7 17.1A1.8 1.8 0 0 0 4.3 20h15.4a1.8 1.8 0 0 0 1.6-2.9L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/><path d="M12 9v4M12 16.5h.01"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>',
+    starOutline: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z"/></svg>',
+  };
+
+  const FEATURE_ICON_FALLBACK = { shield: I.shield, zap: I.check, database: I.shield, lock: I.shield };
+
+  function renderFeatureStrip(features) {
+    const wrap = document.getElementById("featureStrip");
+    wrap.innerHTML = features.map(f => `
+      <div class="feature-item">
+        <span class="ico-circle" style="background:${f.bg};color:${f.color};">${FEATURE_ICON_FALLBACK[f.icon] || I.shield}</span>
+        <div>
+          <div class="t">${escapeHtml(f.title)}</div>
+          <div class="d">${escapeHtml(f.description)}</div>
+        </div>
+      </div>`).join("");
+  }
+
+  async function loadPageMeta() {
+    try {
+      const meta = await MedAPI.getInteractionCheckerMeta();
+      renderFeatureStrip(meta.features || []);
+      document.getElementById("infoText").textContent = meta.disclaimer || "";
+      document.getElementById("infoBox").style.display = meta.disclaimer ? "flex" : "none";
+      document.getElementById("examplesA").innerHTML = meta.exampleTextA || "";
+      document.getElementById("examplesB").innerHTML = meta.exampleTextB || "";
+    } catch (e) {
+      document.getElementById("featureStrip").closest(".card").classList.add("hidden");
+      document.getElementById("infoBox").style.display = "none";
+    }
+  }
+  loadPageMeta();
+
+  async function populateMedList() {
+    try {
+      const { medicines } = await MedAPI.searchMedicines();
+      const opts = (medicines || []).map(m => `<option value="${escapeHtml(m)}"></option>`).join("");
+      document.getElementById("medListA").innerHTML = opts;
+      document.getElementById("medListB").innerHTML = opts;
+    } catch (e) {}
+  }
+  populateMedList();
+
+  document.getElementById("swapBtn").addEventListener("click", () => {
+    const a = document.getElementById("drugA"), b = document.getElementById("drugB");
+    [a.value, b.value] = [b.value, a.value];
+  });
+
+  function starIcons(n) {
+    let html = "";
+    for (let i = 0; i < 5; i++) html += i < n ? I.star : I.starOutline;
+    return html;
+  }
+
+  function riskClass(riskLevel) {
+    if (riskLevel === "HIGH") return "high";
+    if (riskLevel === "MODERATE") return "moderate";
+    return "low";
+  }
+
+  function renderResult(r) {
+    const section = document.getElementById("resultSection");
+    section.classList.remove("hidden");
+
+    if (r.status === "not_found") {
+      section.innerHTML = `
+        <div class="card card-pad" style="text-align:center;padding:44px 20px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:var(--gray-100);color:var(--gray-400);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">${I.search}</div>
+          <h3 style="margin-bottom:8px;">Couldn't identify one or both medicines</h3>
+          <p class="empty-note">Please check the spelling of "${escapeHtml(r.drug_a)}" and "${escapeHtml(r.drug_b)}", or try the generic name.</p>
+        </div>`;
+      return;
+    }
+
+    const cls = riskClass(r.risk_level);
+    const iconColor = cls === "high" ? "var(--red)" : cls === "moderate" ? "var(--amber)" : "var(--green)";
+    const icon = cls === "low" ? I.check : I.alert;
+    const title = r.status === "no_known_interaction" ? "No Known Interaction" :
+      r.risk_level === "HIGH" ? "High Risk Interaction" : r.risk_level === "MODERATE" ? "Moderate Risk Interaction" : "Low Risk Interaction";
+
+    section.innerHTML = `
+      <div class="result-grid">
+        <div>
+          <div class="card card-pad">
+            <div class="panel-title">Interaction Result</div>
+            <div class="risk-hero ${cls}">
+              <span class="ico-circle" style="color:${iconColor};">${icon}</span>
+              <div>
+                <h3 style="color:${iconColor};">${escapeHtml(title)}</h3>
+                <div class="pair-row"><b>${escapeHtml(r.drug_a)} + ${escapeHtml(r.drug_b)}</b> ${r.risk_level ? `<span class="sev-badge ${cls}">${escapeHtml(r.risk_level)} RISK</span>` : ""}</div>
+                <p>${escapeHtml(r.why_concern || "")}</p>
+              </div>
+            </div>
+
+            ${r.possible_effects && r.possible_effects.length ? `
+            <div class="sub-head">Possible Effects</div>
+            <ul class="effect-list">${r.possible_effects.map(e => `<li>${I.alert}<span>${escapeHtml(e)}</span></li>`).join("")}</ul>` : ""}
+
+            ${(r.sources && r.sources.length) ? `
+            <div class="sub-head">Evidence &amp; Sources</div>
+            <table class="src-table">
+              <thead><tr><th>Source</th><th>Type</th><th>Relevance</th></tr></thead>
+              <tbody>${r.sources.map(s => `<tr><td>${escapeHtml(s.source)}</td><td>${escapeHtml(s.type || "Reference")}</td><td style="color:var(--green);font-weight:700;">${escapeHtml(s.relevance || "High")}</td></tr>`).join("")}</tbody>
+            </table>` : ""}
+          </div>
+        </div>
+
+        <div>
+          <div class="card card-pad side-card">
+            <div class="panel-title"><span class="ico-circle" style="background:var(--primary-light);color:var(--primary);">${I.shield}</span>Risk Assessment</div>
+            <div class="risk-meta-grid">
+              <div class="risk-meta-item"><div class="k">Risk Level</div><div class="v" style="color:${iconColor};">${escapeHtml(r.risk_level || "—")}</div></div>
+              <div class="risk-meta-item"><div class="k">Evidence Strength</div><div class="stars">${starIcons(r.evidence_stars || 0)}</div></div>
+              <div class="risk-meta-item"><div class="k">Severity</div><div class="v">${escapeHtml(r.severity || "None")}</div></div>
+              <div class="risk-meta-item"><div class="k">Status</div><div class="v">${escapeHtml((r.status || "").replace(/_/g, " "))}</div></div>
+            </div>
+          </div>
+
+          ${(r.what_you_should_do && r.what_you_should_do.length) || r.seek_care_if ? `
+          <div class="card card-pad side-card">
+            <div class="panel-title" style="color:var(--green);">${I.check}What You Should Do</div>
+            <div class="action-box">
+              <ul>${(r.what_you_should_do || []).map(a => `<li>${I.check}<span>${escapeHtml(a)}</span></li>`).join("")}</ul>
+              ${r.seek_care_if ? `<div class="seek-care-box">${I.alert}<span>${escapeHtml(r.seek_care_if)}</span></div>` : ""}
+            </div>
+          </div>` : ""}
+        </div>
+      </div>`;
+  }
+
+  document.getElementById("checkBtn").addEventListener("click", async () => {
+    const a = document.getElementById("drugA").value.trim();
+    const b = document.getElementById("drugB").value.trim();
+    if (!a || !b) return;
+    const btn = document.getElementById("checkBtn");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Checking...';
+    try {
+      const result = await MedAPI.analyzeInteraction(a, b);
+      renderResult(result);
+      document.getElementById("resultSection").scrollIntoView({ behavior: "smooth" });
+    } catch (e) {
+      document.getElementById("resultSection").classList.remove("hidden");
+      document.getElementById("resultSection").innerHTML = `<div class="card card-pad"><p class="empty-note">Interaction check failed: ${escapeHtml(e.message)}</p></div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `${I.search} Check Interaction`;
+    }
+  });
+
+  document.getElementById("addMedBox").addEventListener("click", () => {
+    alert("Multi-medicine (3+) interaction checking isn't available yet — check pairs for now.");
+  });
+
+  const params = new URLSearchParams(location.search);
+  if (params.get("a")) document.getElementById("drugA").value = params.get("a");
+  if (params.get("b")) document.getElementById("drugB").value = params.get("b");
+  if (params.get("a") && params.get("b")) document.getElementById("checkBtn").click();
+</script>
+</body>
+</html>

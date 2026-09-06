@@ -1,0 +1,1255 @@
+[
+  {
+    "id": "info_1",
+    "question": "What is Amoxicillin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_2",
+    "question": "What are the side effects of Amoxicillin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_3",
+    "question": "What warnings should I know about Amoxicillin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_4",
+    "question": "Is Amoxicillin safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_5",
+    "question": "How does Amoxicillin work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_6",
+    "question": "What should I know before taking Amoxicillin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_7",
+    "question": "What is Aspirin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_8",
+    "question": "What are the side effects of Aspirin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_9",
+    "question": "What warnings should I know about Aspirin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_10",
+    "question": "Is Aspirin safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_11",
+    "question": "How does Aspirin work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_12",
+    "question": "What should I know before taking Aspirin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_13",
+    "question": "What is Ibuprofen used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_14",
+    "question": "What are the side effects of Ibuprofen?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_15",
+    "question": "What warnings should I know about Ibuprofen?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_16",
+    "question": "Is Ibuprofen safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_17",
+    "question": "How does Ibuprofen work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_18",
+    "question": "What should I know before taking Ibuprofen?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_19",
+    "question": "What is Lisinopril used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_20",
+    "question": "What are the side effects of Lisinopril?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_21",
+    "question": "What warnings should I know about Lisinopril?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_22",
+    "question": "Is Lisinopril safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_23",
+    "question": "How does Lisinopril work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_24",
+    "question": "What should I know before taking Lisinopril?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_25",
+    "question": "What is Metformin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_26",
+    "question": "What are the side effects of Metformin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_27",
+    "question": "What warnings should I know about Metformin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_28",
+    "question": "Is Metformin safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_29",
+    "question": "How does Metformin work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_30",
+    "question": "What should I know before taking Metformin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_31",
+    "question": "What is Omeprazole used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_32",
+    "question": "What are the side effects of Omeprazole?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_33",
+    "question": "What warnings should I know about Omeprazole?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_34",
+    "question": "Is Omeprazole safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_35",
+    "question": "How does Omeprazole work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_36",
+    "question": "What should I know before taking Omeprazole?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_37",
+    "question": "What is Paracetamol used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_38",
+    "question": "What are the side effects of Paracetamol?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_39",
+    "question": "What warnings should I know about Paracetamol?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_40",
+    "question": "Is Paracetamol safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_41",
+    "question": "How does Paracetamol work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_42",
+    "question": "What should I know before taking Paracetamol?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_43",
+    "question": "What is Sertraline used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_44",
+    "question": "What are the side effects of Sertraline?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_45",
+    "question": "What warnings should I know about Sertraline?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_46",
+    "question": "Is Sertraline safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_47",
+    "question": "How does Sertraline work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_48",
+    "question": "What should I know before taking Sertraline?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_49",
+    "question": "What is Simvastatin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_50",
+    "question": "What are the side effects of Simvastatin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_51",
+    "question": "What warnings should I know about Simvastatin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_52",
+    "question": "Is Simvastatin safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_53",
+    "question": "How does Simvastatin work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_54",
+    "question": "What should I know before taking Simvastatin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_55",
+    "question": "What is Warfarin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_56",
+    "question": "What are the side effects of Warfarin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_57",
+    "question": "What warnings should I know about Warfarin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_58",
+    "question": "Is Warfarin safe to take regularly?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_59",
+    "question": "How does Warfarin work?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "info_60",
+    "question": "What should I know before taking Warfarin?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "interaction_61",
+    "question": "Can Warfarin and Aspirin be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_62",
+    "question": "Is there an interaction between Warfarin and Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_63",
+    "question": "I'm taking Warfarin, is it safe to also take Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_64",
+    "question": "Does Warfarin interact with Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_65",
+    "question": "What happens if I combine Warfarin and Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_66",
+    "question": "Can Warfarin and Ibuprofen be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_67",
+    "question": "Is there an interaction between Warfarin and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_68",
+    "question": "I'm taking Warfarin, is it safe to also take Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_69",
+    "question": "Does Warfarin interact with Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_70",
+    "question": "What happens if I combine Warfarin and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major"
+  },
+  {
+    "id": "interaction_71",
+    "question": "Can Aspirin and Ibuprofen be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_72",
+    "question": "Is there an interaction between Aspirin and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_73",
+    "question": "I'm taking Aspirin, is it safe to also take Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_74",
+    "question": "Does Aspirin interact with Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_75",
+    "question": "What happens if I combine Aspirin and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_76",
+    "question": "Can Sertraline and Aspirin be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_77",
+    "question": "Is there an interaction between Sertraline and Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_78",
+    "question": "I'm taking Sertraline, is it safe to also take Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_79",
+    "question": "Does Sertraline interact with Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_80",
+    "question": "What happens if I combine Sertraline and Aspirin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_81",
+    "question": "Can Simvastatin and Amoxicillin be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_82",
+    "question": "Is there an interaction between Simvastatin and Amoxicillin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_83",
+    "question": "I'm taking Simvastatin, is it safe to also take Amoxicillin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_84",
+    "question": "Does Simvastatin interact with Amoxicillin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_85",
+    "question": "What happens if I combine Simvastatin and Amoxicillin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_86",
+    "question": "Can Omeprazole and Metformin be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_87",
+    "question": "Is there an interaction between Omeprazole and Metformin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_88",
+    "question": "I'm taking Omeprazole, is it safe to also take Metformin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_89",
+    "question": "Does Omeprazole interact with Metformin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_90",
+    "question": "What happens if I combine Omeprazole and Metformin?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor"
+  },
+  {
+    "id": "interaction_91",
+    "question": "Can Lisinopril and Ibuprofen be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_92",
+    "question": "Is there an interaction between Lisinopril and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_93",
+    "question": "I'm taking Lisinopril, is it safe to also take Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_94",
+    "question": "Does Lisinopril interact with Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "interaction_95",
+    "question": "What happens if I combine Lisinopril and Ibuprofen?",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate"
+  },
+  {
+    "id": "edge_96",
+    "question": "Hello, how are you?",
+    "type": "general",
+    "expected_medicines": [],
+    "expected_interaction": null
+  },
+  {
+    "id": "edge_97",
+    "question": "Can Xanaxolol and Fooboprofen be taken together?",
+    "type": "drug_interaction",
+    "expected_medicines": [],
+    "expected_interaction": "unknown_medicine"
+  },
+  {
+    "id": "edge_98",
+    "question": "What is Metformin used for?",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null
+  },
+  {
+    "id": "paraphrase_99",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_1"
+  },
+  {
+    "id": "paraphrase_100",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Amoxicillin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_4"
+  },
+  {
+    "id": "paraphrase_101",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_7"
+  },
+  {
+    "id": "paraphrase_102",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Aspirin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_10"
+  },
+  {
+    "id": "paraphrase_103",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_13"
+  },
+  {
+    "id": "paraphrase_104",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Ibuprofen"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_16"
+  },
+  {
+    "id": "paraphrase_105",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_19"
+  },
+  {
+    "id": "paraphrase_106",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Lisinopril"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_22"
+  },
+  {
+    "id": "paraphrase_107",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_25"
+  },
+  {
+    "id": "paraphrase_108",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Metformin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_28"
+  },
+  {
+    "id": "paraphrase_109",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_31"
+  },
+  {
+    "id": "paraphrase_110",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Omeprazole"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_34"
+  },
+  {
+    "id": "paraphrase_111",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_37"
+  },
+  {
+    "id": "paraphrase_112",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Paracetamol"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_40"
+  },
+  {
+    "id": "paraphrase_113",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_43"
+  },
+  {
+    "id": "paraphrase_114",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Sertraline"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_46"
+  },
+  {
+    "id": "paraphrase_115",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_49"
+  },
+  {
+    "id": "paraphrase_116",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Simvastatin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_52"
+  },
+  {
+    "id": "paraphrase_117",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_55"
+  },
+  {
+    "id": "paraphrase_118",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "medicine_info",
+    "expected_medicines": [
+      "Warfarin"
+    ],
+    "expected_interaction": null,
+    "paraphrase_of": "info_58"
+  },
+  {
+    "id": "paraphrase_119",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major",
+    "paraphrase_of": "interaction_61"
+  },
+  {
+    "id": "paraphrase_120",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Aspirin"
+    ],
+    "expected_interaction": "major",
+    "paraphrase_of": "interaction_64"
+  },
+  {
+    "id": "paraphrase_121",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major",
+    "paraphrase_of": "interaction_67"
+  },
+  {
+    "id": "paraphrase_122",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Warfarin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "major",
+    "paraphrase_of": "interaction_70"
+  },
+  {
+    "id": "paraphrase_123",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Aspirin",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate",
+    "paraphrase_of": "interaction_73"
+  },
+  {
+    "id": "paraphrase_124",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate",
+    "paraphrase_of": "interaction_76"
+  },
+  {
+    "id": "paraphrase_125",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Sertraline",
+      "Aspirin"
+    ],
+    "expected_interaction": "moderate",
+    "paraphrase_of": "interaction_79"
+  },
+  {
+    "id": "paraphrase_126",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor",
+    "paraphrase_of": "interaction_82"
+  },
+  {
+    "id": "paraphrase_127",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Simvastatin",
+      "Amoxicillin"
+    ],
+    "expected_interaction": "minor",
+    "paraphrase_of": "interaction_85"
+  },
+  {
+    "id": "paraphrase_128",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Omeprazole",
+      "Metformin"
+    ],
+    "expected_interaction": "minor",
+    "paraphrase_of": "interaction_88"
+  },
+  {
+    "id": "paraphrase_129",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate",
+    "paraphrase_of": "interaction_91"
+  },
+  {
+    "id": "paraphrase_130",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [
+      "Lisinopril",
+      "Ibuprofen"
+    ],
+    "expected_interaction": "moderate",
+    "paraphrase_of": "interaction_94"
+  },
+  {
+    "id": "paraphrase_131",
+    "question": "[MOCK RESPONSE \u2014 no LLM API key configured] Based on the retrieved evidence, here is a general summary. Please configure GEMINI_API_KEY or GROK_API_KEY for real answers.",
+    "type": "drug_interaction",
+    "expected_medicines": [],
+    "expected_interaction": "unknown_medicine",
+    "paraphrase_of": "edge_97"
+  }
+]

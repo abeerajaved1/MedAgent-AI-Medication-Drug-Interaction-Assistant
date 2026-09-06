@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login — MedAgent</title>
+<link rel="stylesheet" href="css/styles.css?v=3" />
+<style>
+  :root {
+    --auth-a: #3b6df6;
+    --auth-b: #6a5cf2;
+  }
+  body {
+    background: linear-gradient(140deg, #4f7cf7 0%, #7f8ff5 12%, #c9d7fb 32%, #eef3ff 55%, #f7f9ff 100%);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 32px 24px 64px;
+  }
+  .auth-wrapper { position: relative; max-width: 1040px; width: 100%; }
+  .auth-shell {
+    display: grid; grid-template-columns: 1.08fr 1fr;
+    width: 100%;
+    background: white; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 22px 50px rgba(30, 55, 130, 0.22);
+  }
+  .auth-left {
+    background: linear-gradient(165deg, #eef3ff, #f8faff);
+    padding: 32px 34px 26px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .auth-logo-mark {
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(150deg, var(--auth-a), var(--auth-b));
+    display: flex; align-items: center; justify-content: center; color: white;
+    box-shadow: 0 6px 14px rgba(59, 109, 246, 0.3);
+  }
+  .auth-logo-mark svg { width: 21px; height: 21px; }
+  .auth-brand-row { display: flex; align-items: center; gap: 11px; }
+  .auth-brand-row .name { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; color: var(--navy); }
+  .auth-brand-row .name span { color: var(--auth-a); }
+  .auth-brand-row .tagline { font-size: 11px; color: var(--gray-500); margin-top: 1px; }
+
+  .auth-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; margin: 18px 0 10px; color: var(--navy); }
+  .grad-text {
+    background: linear-gradient(100deg, var(--auth-a), var(--auth-b));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .auth-left > p.lede { color: var(--gray-600); font-size: 12.5px; line-height: 1.55; max-width: 400px; margin-bottom: 6px; }
+
+  .auth-illustration { width: 100%; max-width: 360px; margin: 8px auto 4px; display: block; }
+
+  .feature-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    background: white; border: 1px solid var(--gray-200); border-radius: 14px;
+    padding: 13px 10px; box-shadow: var(--shadow-sm);
+  }
+  .feature-grid .feat { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+  .feature-grid .feat .ico-circle { width: 30px; height: 30px; background: var(--primary-light); color: var(--auth-a); }
+  .feature-grid .feat span { font-size: 10.5px; font-weight: 600; color: var(--gray-700); line-height: 1.25; }
+
+  .auth-right { padding: 32px 34px; display: flex; flex-direction: column; justify-content: center; }
+  .auth-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--gray-200); margin-bottom: 18px; }
+  .auth-right h2 { font-size: 18px; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+  .auth-right > p.sub { color: var(--gray-500); font-size: 12px; margin-bottom: 16px; }
+
+  .auth-field { margin-bottom: 12px; }
+  .auth-input-wrap { position: relative; }
+  .auth-input-wrap .leading {
+    position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+    width: 15px; height: 15px; color: var(--gray-400);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .auth-input-wrap .leading svg { width: 100%; height: 100%; }
+  .auth-input {
+    width: 100%; padding: 10.5px 14px 10.5px 37px; border: 1px solid var(--gray-300); border-radius: 11px;
+    font-size: 13px; font-family: inherit; color: var(--navy); background: white;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .auth-input:focus { outline: none; border-color: var(--auth-a); box-shadow: 0 0 0 3px rgba(59,109,246,0.12); }
+  .auth-input::placeholder { color: var(--gray-400); }
+  .auth-input-icon-btn {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--gray-400); display: flex;
+    width: 15px; height: 15px; padding: 0;
+  }
+  .auth-input-icon-btn svg { width: 100%; height: 100%; }
+
+  .form-row-between { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 14px; font-size: 12px; }
+  .checkbox-row { display: flex; align-items: center; gap: 6px; color: var(--gray-600); }
+  .field-error { color: var(--red); font-size: 11.5px; margin-top: 5px; display: none; }
+
+  .btn-gradient {
+    width: 100%; position: relative; border: none; cursor: pointer;
+    background: linear-gradient(100deg, var(--auth-a), var(--auth-b));
+    color: white; font-weight: 600; font-size: 13.5px;
+    padding: 11.5px 46px 11.5px 16px; border-radius: 11px;
+    box-shadow: 0 8px 16px rgba(59, 109, 246, 0.28);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-gradient:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 11px 20px rgba(59, 109, 246, 0.36); }
+  .btn-gradient:disabled { opacity: .7; cursor: not-allowed; }
+  .btn-gradient .arrow-dot {
+    position: absolute; right: 7px; top: 50%; transform: translateY(-50%);
+    width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.22);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .btn-gradient .arrow-dot svg { width: 12px; height: 12px; }
+
+  .form-view { display: none; }
+  .form-view.active { display: block; }
+
+  .divider-row { display: flex; align-items: center; gap: 10px; margin: 16px 0; color: var(--gray-400); font-size: 11px; }
+  .divider-row .line { flex: 1; height: 1px; background: var(--gray-200); }
+
+  .social-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .social-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8.5px; border: 1px solid var(--gray-300); border-radius: 10px;
+    font-size: 12px; font-weight: 600; background: white; cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .social-btn:hover { background: var(--gray-50); border-color: var(--gray-400); }
+  .social-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .note-box {
+    display: flex; gap: 8px; align-items: flex-start; background: var(--primary-light);
+    border-radius: 10px; padding: 10px 12px; margin-top: 16px; font-size: 11px;
+    color: var(--primary-dark); line-height: 1.5;
+  }
+  .note-box .ico { flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; color: var(--auth-a); }
+  .note-box .ico svg { width: 100%; height: 100%; }
+
+  .trust-bar {
+    position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%);
+    display: flex; align-items: center; gap: 8px;
+    background: white; border-radius: 999px; padding: 10px 20px;
+    box-shadow: 0 10px 22px rgba(30, 55, 130, 0.16);
+    font-size: 12px; font-weight: 600; color: var(--auth-a);
+    white-space: nowrap; z-index: 5;
+  }
+  .trust-bar .ico { width: 16px; height: 16px; flex-shrink: 0; color: var(--auth-a); }
+  .trust-bar .ico svg { width: 100%; height: 100%; }
+
+  @media (max-width: 980px) {
+    .auth-shell { grid-template-columns: 1fr; max-width: 460px; }
+    .auth-left { padding: 28px 26px 22px; }
+    .auth-illustration { max-width: 240px; }
+    .auth-right { padding: 28px 26px 34px; }
+    .trust-bar {
+      white-space: normal; text-align: center; max-width: 82%;
+      border-radius: 18px; flex-direction: column; gap: 5px; padding: 12px 18px;
+    }
+  }
+  @media (max-width: 480px) {
+    body { padding: 20px 12px 76px; }
+    .auth-shell { border-radius: 16px; }
+    .auth-left { padding: 22px 18px 18px; }
+    .auth-left h1 { font-size: 19px; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .auth-right { padding: 22px 18px 28px; }
+    .social-grid { grid-template-columns: 1fr; }
+    .trust-bar { font-size: 11px; padding: 10px 14px; max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="auth-wrapper">
+<div class="auth-shell">
+  <div class="auth-left">
+    <div class="auth-brand-row">
+      <div class="auth-logo-mark" id="ico-brand"></div>
+      <div>
+        <div class="name">Med<span>Agent</span></div>
+        <div class="tagline">AI Pharmacist &amp; Diagnostic Assistant</div>
+      </div>
+    </div>
+
+    <h1>Your <span class="grad-text">AI Pharmacist</span> &amp;<br /><span class="grad-text">Diagnostic</span> Assistant</h1>
+    <p class="lede">Advanced AI, verified medical knowledge, and multi-agent safety verification for reliable medication guidance and diagnostic support.</p>
+
+    <img class="auth-illustration" src="img/pharmacist-hero.png" alt="AI pharmacist assistant illustration " />
+
+    <div class="feature-grid">
+      <div class="feat"><div class="ico-circle" id="ico-f1"></div><span>Multi-Agent Verification</span></div>
+      <div class="feat"><div class="ico-circle" id="ico-f2"></div><span>Evidence Based Knowledge</span></div>
+      <div class="feat"><div class="ico-circle" id="ico-f3"></div><span>Safety First</span></div>
+      <div class="feat"><div class="ico-circle" id="ico-f4"></div><span>Multi-Language Support</span></div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-tabs">
+      <div class="pill-tab active" data-tab="login">Login</div>
+      <div class="pill-tab" data-tab="register">Register</div>
+    </div>
+
+    <div class="form-view active" id="view-login">
+      <h2>Welcome Back! <span>👋</span></h2>
+      <p class="sub">Login to continue to your account</p>
+      <form id="login-form">
+        <div class="auth-field">
+          <div class="auth-input-wrap">
+            <span class="leading" id="ico-mail-1"></span>
+            <input class="auth-input" type="email" id="login-email" placeholder="Enter your email address" required />
+          </div>
+        </div>
+        <div class="auth-field">
+          <div class="auth-input-wrap">
+            <span class="leading" id="ico-lock-1"></span>
+            <input class="auth-input" type="password" id="login-password" placeholder="Enter your password" required minlength="6" style="padding-right:36px;" />
+            <button type="button" class="auth-input-icon-btn" data-toggle="login-password"></button>
+          </div>
+        </div>
+        <div class="form-row-between">
+          <label class="checkbox-row"><input type="checkbox" /> Remember me</label>
+          <a href="#" class="bold" style="color:var(--auth-a);">Forgot password?</a>
+        </div>
+        <div class="field-error" id="login-error"></div>
+        <button class="btn-gradient" type="submit" id="login-submit">
+          Login
+          <span class="arrow-dot" id="ico-arrow-login"></span>
+        </button>
+      </form>
+
+      <div class="divider-row"><div class="line"></div>or continue with<div class="line"></div></div>
+      <div class="social-grid">
+        <button class="social-btn" data-provider="Google" id="btn-google-login"></button>
+        <button class="social-btn" data-provider="Apple" id="btn-apple-login"></button>
+        <button class="social-btn" data-provider="Microsoft" id="btn-microsoft-login"></button>
+      </div>
+
+      <div class="note-box"><span class="ico" id="ico-note-1"></span><span>MedAgent provides AI-assisted information and does not replace professional medical advice.</span></div>
+    </div>
+
+    <div class="form-view" id="view-register">
+      <h2>Create Your Account</h2>
+      <p class="sub">Join MedAgent for safer, smarter medication guidance</p>
+      <form id="register-form">
+        <div class="auth-field">
+          <div class="auth-input-wrap">
+            <span class="leading" id="ico-user-1"></span>
+            <input class="auth-input" id="register-name" placeholder="Enter your full name" required />
+          </div>
+        </div>
+        <div class="auth-field">
+          <div class="auth-input-wrap">
+            <span class="leading" id="ico-mail-2"></span>
+            <input class="auth-input" type="email" id="register-email" placeholder="Enter your email address" required />
+          </div>
+        </div>
+        <div class="auth-field">
+          <div class="auth-input-wrap">
+            <span class="leading" id="ico-lock-2"></span>
+            <input class="auth-input" type="password" id="register-password" placeholder="At least 6 characters" required minlength="6" style="padding-right:36px;" />
+            <button type="button" class="auth-input-icon-btn" data-toggle="register-password"></button>
+          </div>
+        </div>
+        <div class="field-error" id="register-error" style="margin-bottom:14px;"></div>
+        <button class="btn-gradient" type="submit" id="register-submit">
+          Create Account
+          <span class="arrow-dot" id="ico-arrow-register"></span>
+        </button>
+      </form>
+      <div class="note-box"><span class="ico" id="ico-note-2"></span><span>By creating an account you agree this tool provides AI-assisted information, not medical advice.</span></div>
+    </div>
+  </div>
+</div>
+
+  <div class="trust-bar"><span class="ico" id="ico-trust"></span><span>Trusted by thousands for safe and informed healthcare decisions</span></div>
+</div>
+
+<script src="js/icons.js?v=3"></script>
+<script src="js/api.js"></script>
+<script>
+  // Brand-mark icons (kept local to this page — multicolor logos aren't
+  // part of the shared currentColor icon set in icons.js).
+  const BrandIcons = {
+    google: '<svg viewBox="0 0 48 48" width="24" height="24"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>',
+    apple: '<svg viewBox="0 0 24 24" width="18" height="18" fill="#111"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.4 0-1.13.55-2.27 1.19-3.03.8-.92 2.14-1.58 3.25-1.62.02.14.06.28.06.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.925 1.34-1.9 2.68-3.43 2.71-1.49.03-1.97-.88-3.67-.88-1.71 0-2.23.85-3.65.91-1.46.06-2.58-1.44-3.51-2.78-1.9-2.75-3.37-7.79-1.41-11.19.96-1.68 2.69-2.75 4.55-2.78 1.44-.03 2.79.97 3.67.97.87 0 2.51-1.2 4.24-1.02.72.03 2.74.29 4.04 2.19-.1.07-2.41 1.41-2.38 4.2.03 3.34 2.93 4.45 2.97 4.47z"/></svg>',
+    microsoft: '<svg viewBox="0 0 24 24" width="18" height="18"><rect x="1" y="1" width="10" height="10" fill="#F35325"/><rect x="13" y="1" width="10" height="10" fill="#81BC06"/><rect x="1" y="13" width="10" height="10" fill="#05A6F0"/><rect x="13" y="13" width="10" height="10" fill="#FFBA08"/></svg>'
+  };
+
+  document.getElementById("ico-brand").innerHTML = Icons.shieldCheck;
+  document.getElementById("ico-f1").innerHTML = Icons.shieldCheck;
+  document.getElementById("ico-f2").innerHTML = Icons.book;
+  document.getElementById("ico-f3").innerHTML = Icons.lock;
+  document.getElementById("ico-f4").innerHTML = Icons.globe;
+  document.getElementById("ico-mail-1").innerHTML = Icons.mail;
+  document.getElementById("ico-user-1").innerHTML = Icons.user;
+  document.getElementById("ico-mail-2").innerHTML = Icons.mail;
+  document.getElementById("ico-lock-1").innerHTML = Icons.lock;
+  document.getElementById("ico-lock-2").innerHTML = Icons.lock;
+  document.getElementById("ico-note-1").innerHTML = Icons.shieldCheck;
+  document.getElementById("ico-note-2").innerHTML = Icons.shieldCheck;
+  document.getElementById("ico-arrow-login").innerHTML = Icons.arrowRight;
+  document.getElementById("ico-arrow-register").innerHTML = Icons.arrowRight;
+  document.getElementById("ico-trust").innerHTML = Icons.shieldCheck;
+
+  const googleBtn = document.getElementById("btn-google-login");
+  googleBtn.innerHTML = BrandIcons.google + "<span>Google</span>";
+  const appleBtn = document.getElementById("btn-apple-login");
+  appleBtn.innerHTML = BrandIcons.apple + "<span>Apple</span>";
+  const msBtn = document.getElementById("btn-microsoft-login");
+  msBtn.innerHTML = BrandIcons.microsoft + "<span>Microsoft</span>";
+
+  document.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.innerHTML = Icons.eye;
+    btn.addEventListener("click", () => {
+      const input = document.getElementById(btn.dataset.toggle);
+      const showing = input.type === "text";
+      input.type = showing ? "password" : "text";
+      btn.innerHTML = showing ? Icons.eye : Icons.eyeOff;
+    });
+  });
+
+  // Tabs
+  document.querySelectorAll(".pill-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".pill-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".form-view").forEach(v => v.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("view-" + tab.dataset.tab).classList.add("active");
+    });
+  });
+  if (location.hash === "#register") document.querySelector('[data-tab="register"]').click();
+
+  // Social buttons — real OAuth isn't wired up in this build, so we're
+  // honest about that rather than faking a successful login.
+  document.querySelectorAll(".social-btn").forEach(btn => {
+    btn.addEventListener("click", () => toast(`${btn.dataset.provider} sign-in isn't configured in this demo yet — please use email/password.`));
+  });
+
+  function setLoading(btn, loading, label) {
+    btn.disabled = loading;
+    if (loading) {
+      btn.innerHTML = '<span class="spinner"></span>';
+    } else {
+      const arrowId = btn.id === "login-submit" ? "ico-arrow-login" : "ico-arrow-register";
+      btn.innerHTML = `${label}<span class="arrow-dot" id="${arrowId}">${Icons.arrowRight}</span>`;
+    }
+  }
+
+  document.getElementById("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    const errEl = document.getElementById("login-error");
+    errEl.style.display = "none";
+    const btn = document.getElementById("login-submit");
+    setLoading(btn, true, "Login");
+    try {
+      const result = await MedAPI.login(email, password);
+      MedAPI.setToken(result.token);
+      MedAPI.setUser(result.user);
+      toast(`Welcome back, ${result.user.name.split(" ")[0]}!`, "success");
+      location.href = "dashboard.html";
+    } catch (err) {
+      errEl.textContent = err.message || "Login failed.";
+      errEl.style.display = "block";
+    } finally {
+      setLoading(btn, false, "Login");
+    }
+  });
+
+  document.getElementById("register-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("register-name").value.trim();
+    const email = document.getElementById("register-email").value.trim();
+    const password = document.getElementById("register-password").value;
+    const errEl = document.getElementById("register-error");
+    errEl.style.display = "none";
+    const btn = document.getElementById("register-submit");
+    setLoading(btn, true, "Create Account");
+    try {
+      const result = await MedAPI.register(name, email, password);
+      MedAPI.setToken(result.token);
+      MedAPI.setUser(result.user);
+      toast(`Welcome to MedAgent, ${result.user.name.split(" ")[0]}!`, "success");
+      location.href = "dashboard.html";
+    } catch (err) {
+      errEl.textContent = err.message || "Registration failed.";
+      errEl.style.display = "block";
+    } finally {
+      setLoading(btn, false, "Create Account");
+    }
+  });
+
+  // Already logged in? Skip straight to the dashboard.
+  if (MedAPI.isLoggedIn()) location.href = "dashboard.html";
+</script>
+</body>
+</html>

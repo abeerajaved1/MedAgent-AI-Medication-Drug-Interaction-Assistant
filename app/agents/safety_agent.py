@@ -4,13 +4,19 @@
 Final validation layer. Checks the draft response against the retrieved
 evidence and structured interaction/warning data, and decides:
   - approved
-  - warning_required
+  - warning
   - insufficient_evidence
 
 Combines an LLM-based check (for unsupported claims) with deterministic,
 rule-based overrides (for known severe interactions and safety warnings),
 so a severe interaction can never silently slip through even if the LLM
 verification step fails or is skipped in mock mode.
+
+New in this revision: `verify()` accepts an optional `self_consistency_flagged`
+signal from app/agents/consistency_check.py. If two independently drafted
+responses disagreed on safety-relevant content, an otherwise-"approved"
+verdict is downgraded to "warning" — the same treatment already given to
+moderate-severity interactions and existing safety warnings.
 """
 import json
 import logging
@@ -45,7 +51,8 @@ class VerificationResult:
 class SafetyVerifierAgent:
     def verify(self, user_query: str, evidence_text: str, draft_response: str,
                severity: str | None = None, has_warnings: bool = False,
-               evidence_found: bool = True) -> VerificationResult:
+               evidence_found: bool = True,
+               self_consistency_flagged: bool = False) -> VerificationResult:
 
         # --- Deterministic rule-based checks first (cannot be bypassed by the LLM) ---
         if not evidence_found:
@@ -73,6 +80,17 @@ class SafetyVerifierAgent:
             llm_result.status = "warning"
             if not llm_result.safety_note:
                 llm_result.safety_note = "Please review the relevant warnings before use and consult a professional."
+
+        # New: escalate on self-consistency disagreement too — two independently
+        # sampled drafts disagreeing on safety-relevant content is itself a
+        # reason for extra caution, even if each draft individually looked fine.
+        if llm_result.status == "approved" and self_consistency_flagged:
+            llm_result.status = "warning"
+            if not llm_result.safety_note:
+                llm_result.safety_note = (
+                    "Independent re-drafts of this answer did not fully agree — please "
+                    "confirm important details with a pharmacist or doctor."
+                )
 
         return llm_result
 
